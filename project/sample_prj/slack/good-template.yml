@@ -1,0 +1,21 @@
+---
+username: Digdag
+icon_emoji: ':blush:'
+attachments:
+- fallback: '[SUCCESS] ${workflow_name} workflow'
+  color: "good"
+  text: '*[SUCCESS]* `${workflow_name}` Workflow'
+  mrkdwn_in:
+  - text
+  - pretext
+  - fields
+  fields:
+  - title: Task Name
+    value: "${task_name}"
+    short: false
+  - title: Session Date
+    value: "${session_time}" # digdag build-in values
+    short: true
+  - title: Environment
+    value: "${ENV}" # 環境変数も利用できる
+    short: true

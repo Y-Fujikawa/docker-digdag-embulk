@@ -1,0 +1,10 @@
+timezone: UTC
+
++setup:
+  echo>: start ${session_time}
+
++exec:
+  sh>: pg_host=${secret:pg.host} pg_user=${secret:pg.user} pg_password=${secret:pg.password} pg_database=${secret:pg.database} embulk run config.yml.liquid
+
++teardown:
+  echo>: finish ${session_time}

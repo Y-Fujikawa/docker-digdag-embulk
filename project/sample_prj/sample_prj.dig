@@ -1,0 +1,42 @@
+timezone: UTC
+
+_export:
+  plugin:
+    repositories:
+      - https://jitpack.io
+    dependencies:
+      - com.github.szyn:digdag-slack:0.1.4
+  webhook_url: #{SLACK_WEBHOOK_URL}
+  workflow_name: sample_prj
+  ENV: develop
+  rb:
+    require: 'tasks/sample'
+
++setup:
+  echo>: start ${session_time}
+
++disp_current_date:
+  echo>: ${moment(session_time).utc().format('YYYY-MM-DD HH:mm:ss Z')}
+
++repeat:
+  for_each>:
+    order: [first, second, third]
+    animal: [dog, cat]
+  _do:
+    echo>: ${order} ${animal}
+  _parallel: true
+
++sample_embulk:
+  sh>: embulk run config.yml
+
++sample_ruby_1:
+  rb>: Sample.step1
+
++sample_ruby_2:
+  rb>: Sample.step2
+
++teardown:
+  echo>: finish ${session_time}
+
++notice:
+  slack>: slack/good-template.yml

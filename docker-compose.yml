@@ -1,0 +1,14 @@
+version: '2'
+services:
+  digdag:
+    build: .
+    volumes:
+      - ./project:/project
+    ports:
+      - "65432:65432"
+    depends_on:
+      - db_digdag
+  db_digdag:
+    image: postgres:9.6
+    ports:
+      - "5432:5432"
